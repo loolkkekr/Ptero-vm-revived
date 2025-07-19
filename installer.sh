@@ -1,7 +1,7 @@
 #!/bin/sh
 
 ROOTFS_DIR=/home/container
-
+PROOT_VERSION="5.3.0"
 # =========================================================================================
 # Логика установки при первом запуске
 # =========================================================================================
@@ -113,10 +113,6 @@ if [ ! -e $ROOTFS_DIR/.installed ]; then
                     ;;
             esac
             ;;
-            # Используем последнюю стабильную версию Debian (Bullseye)
-            ROOTFS_URL="https://dl-cdn.alpinelinux.org/alpine/v3.22/releases/x86_64/alpine-minirootfs-3.22.0-x86_64.tar.gz"
-            PLACEHOLDER_MSG="Начинается установка Debian 11 (Bullseye)... Пожалуйста, подождите."
-            ;;
         *) # Неверный выбор
             echo "Ошибка: Неверный выбор дистрибутива."
             exit 1
@@ -156,7 +152,7 @@ fi
 if [ ! -e $ROOTFS_DIR/.installed ]; then
     echo "Установка дополнительных утилит (proot)..."
     
-    curl -Lo $ROOTFS_DIR/usr/local/bin/proot "https://github.com/proot-me/proot/releases/download/v${PROOT_VERSION:-5.4.0}/proot-v${PROOT_VERSION:-5.4.0}-${ARCH}-static"
+    curl -Lo $ROOTFS_DIR/usr/local/bin/proot "https://github.com/proot-me/proot/releases/download/v${PROOT_VERSION}/proot-v${PROOT_VERSION}-${ARCH}-static"
     chmod 755 $ROOTFS_DIR/usr/local/bin/proot
 fi
 
